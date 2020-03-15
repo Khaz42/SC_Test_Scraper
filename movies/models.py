@@ -38,7 +38,7 @@ class Review(models.Model):
 
 class Movie(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    average_note = models.FloatField(null=True, blank=True)
+    average_note = models.FloatField(null=True)
     release_date = models.DateField(null=True)
     persons = models.ManyToManyField(Person)
     genres = models.ManyToManyField(Genre)

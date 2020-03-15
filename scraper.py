@@ -1,6 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
+# Allows us to use the Django ORM in an external script
+# import os
+# import django
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "testscraper.settings")
+# django.setup()
+# from movies.models import Movie, Review, Person, Genre
+
 def scrape_movie_page(url):
     page = requests.get(url)
     if (page.status_code == 200):
@@ -14,6 +21,11 @@ def scrape_movie_page(url):
         note = soup.find('span', class_="pvi-scrating-value")
         print("Average Note :", float(note.text))
 
+        # Scrape release date
+        result = soup.find_all('li', class_='pvi-productDetails-item')
+        date = result[3].find('time')['datetime']
+        print("Release date :", date)
+
         # Scrape directors
         result = soup.find_all('span', itemprop="director")
         for item in result:
@@ -25,11 +37,6 @@ def scrape_movie_page(url):
         for item in result:
             genre = item.text
             print("Genre :", genre)
-
-        # Scrape release date
-        result = soup.find_all('li', class_='pvi-productDetails-item')
-        date = result[3].find('time')['datetime']
-        print("Release date :", date)
 
     # Access to the detail page
     page = requests.get(url + "/details")
