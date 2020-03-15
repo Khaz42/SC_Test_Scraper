@@ -6,9 +6,13 @@ def scrape_movie_page(url):
     if (page.status_code == 200):
         soup = BeautifulSoup(page.content, "html.parser")
 
+        # Scrape movie name
+        name = soup.find('h1', class_="pvi-product-title")
+        print("Title :", name['title'])
+
         # Scrape average note
-        result = soup.find('span', class_="pvi-scrating-value")
-        print("Average Note :", float(result.text))
+        note = soup.find('span', class_="pvi-scrating-value")
+        print("Average Note :", float(note.text))
 
         # Scrape directors
         result = soup.find_all('span', itemprop="director")
@@ -71,7 +75,7 @@ def scrape_movie_page(url):
                     review_soup = BeautifulSoup(review_page.content, "html.parser")
                     author = review_soup.find("span", itemprop="author").find("span", itemprop="name").text
                     review = review_soup.find("div", class_="rvi-review-content").text
-                    print("Author : " + author, "| Title : " + title, "| Note : " + str(note))
+                    print("Author : " + author, "| Title : " + title, "| Note : " + str(note) + " | Short Review : " + review[:128])
                 count += 1
             if (count >= 2):
                 break
@@ -97,12 +101,12 @@ def scrape_movie_page(url):
                     review_soup = BeautifulSoup(review_page.content, "html.parser")
                     author = review_soup.find("span", itemprop="author").find("span", itemprop="name").text
                     review = review_soup.find("div", class_="rvi-review-content").text
-                    print("Author : " + author, "| Title : " + title, "| Note : " + str(note))
+                    print("Author : " + author, "| Title : " + title, "| Note : " + str(note) + " | Short Review : " + review[:32])
                 count += 1
             if (count >= 2):
                 break
 
 
 if __name__ == "__main__":
-    # scrape_movie_page("https://www.senscritique.com/film/Matrix/382239")
-    scrape_movie_page("https://www.senscritique.com/film/Fight_Club/363185")
+    scrape_movie_page("https://www.senscritique.com/film/Matrix/382239")
+    # scrape_movie_page("https://www.senscritique.com/film/Fight_Club/363185")
