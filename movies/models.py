@@ -24,6 +24,7 @@ class Genre(models.Model):
 
 
 class Review(models.Model):
+    title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     note = models.PositiveSmallIntegerField(null=True)
     text = models.TextField()
@@ -33,15 +34,15 @@ class Review(models.Model):
         unique_together = ('author', 'movie')
 
     def __str__(self):
-        return "[" + str(self.note) + "] " + self.author + ' - ' + self.text[:64]
+        return "[" + str(self.note) + "] " + self.author + ' - ' + self.title
 
 
 class Movie(models.Model):
     name = models.CharField(max_length=255, unique=True)
     average_note = models.FloatField(null=True)
     release_date = models.DateField(null=True)
-    persons = models.ManyToManyField(Person)
-    genres = models.ManyToManyField(Genre)
+    persons = models.ManyToManyField(Person, blank=True)
+    genres = models.ManyToManyField(Genre, blank=True)
 
     def __str__(self):
         return self.name
