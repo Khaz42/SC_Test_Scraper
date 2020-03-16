@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scraper</title>
-</head>
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value = Submit>
-    </form>
+{% extends 'movies/base.html' %}
+{% block content %}
     <a href="{% url 'movie_list' %}">To movie list</a>
-
-</body>
-</html>
+    <div class="container">
+        <h3>Add a movie</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-success" type="submit" value = Submit>
+        </form>
+    </div>
+{% endblock %}

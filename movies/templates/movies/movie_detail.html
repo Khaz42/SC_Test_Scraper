@@ -1,14 +1,43 @@
-<!DOCTYPE html>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scraper</title>
-</head>
-<body>
+{% extends 'movies/base.html' %}
+{% block content %}
     <a href="{% url 'movie_list' %}">Back to list</a>
-    <h1>{{ movie.name }}</h2>
-</body>
-</html>
+    <div class="container">
+        <h1>{{ movie.name }}</h1>
+        <div class="container">
+            <h2>Details</h2>
+            <p>Average Note : {{ movie.average_note }}</p>
+            <p>Release Date : {{ movie.release_date }}</p>
+            <h3>Genres</h3>
+            <ul>                
+                {% for genre in movie.get_genres %}
+                    <li>{{ genre.genre }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Director(s)</h3>
+            <ul>                
+                {% for director in movie.get_directors %}
+                    <li>{{ director.name }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Actors</h3>
+            <ul>                
+                {% for actor in movie.get_actors %}
+                    <li>{{ actor.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <hr>
+        <div class="container">
+            <h2>Reviews</h2>
+            {% for review in movie.get_reviews %}
+                <div class="container">
+                    <h4>{{ review.title }}</h4>
+                    <p>by <strong>{{ review.author }}</strong></p>
+                    <p>Note : {{ review.note }}</p>
+                    <p>{{ review.text }}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

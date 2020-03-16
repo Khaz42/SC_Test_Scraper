@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scraper</title>
-</head>
-<body>
+{% extends 'movies/base.html' %}
+{% block content %}
     <a href="{% url 'movie_form' %}">Back to form</a>
-    <h1>Movie List</h1>
-    {% if movie_list %}
-        <ul>
-            {% for movie in movie_list %}
-                <li><a href="{% url 'movie_detail' pk=movie.id %}">{{ movie.name }}</a></li>    
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no movie in the database yet.</p>
-    {% endif %}
-</body>
-</html>
+    <div class="container">
+        <h1>Movie List</h1>
+        {% if movie_list %}
+            <ul>
+                {% for movie in movie_list %}
+                    <li><a href="{% url 'movie_detail' pk=movie.id %}">{{ movie.name }}</a></li>    
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no movie in the database yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

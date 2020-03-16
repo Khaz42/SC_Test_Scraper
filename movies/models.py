@@ -44,5 +44,17 @@ class Movie(models.Model):
     persons = models.ManyToManyField(Person, blank=True)
     genres = models.ManyToManyField(Genre, blank=True)
 
+    def get_genres(self):
+        return self.genres.all()
+
+    def get_directors(self):
+        return self.persons.filter(role=Person.Role.Director)
+
+    def get_actors(self):
+        return self.persons.filter(role=Person.Role.Actor)
+
+    def get_reviews(self):
+        return self.review_set.all()
+
     def __str__(self):
         return self.name
