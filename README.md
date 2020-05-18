@@ -1,5 +1,7 @@
 # SensCritique Test - Web Scraper
 
+## [Live Demo](https://sctestscraper.herokuapp.com/)
+
 ### PostgreSQL Setup
 1. After installing PostgreSQL locally : add 'PostgreSQL/\<version>/bin to PATH.
 2. To make sure the export to PATH worked, enter 'pg_config' in the terminal. It should not return "command not found".
