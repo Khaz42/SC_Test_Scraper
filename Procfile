@@ -1,1 +1,1 @@
-web: gunicorn djangorest.wsgi:application --log-file -
+web: gunicorn testscraper.wsgi:application --log-file -
